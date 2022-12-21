@@ -92,4 +92,20 @@ function game() {
     else computerWins += 1;
 }
 
-game();
+/**
+ * Starts a best of n of rock, paper, scissors. If n is even n will be assigned a new value that will be equal to the input of n+1
+ * @param {Number*} n 
+ */
+function bestOfGames(n) {
+    n = Math.floor(n/2)+ 1;
+    while(playerWins < n ||computerWins < n) {
+        game();
+    }
+    let result = Gamestate.DRAW;
+    if(playerWins >= n) result = Gamestate.WON;
+    else result = Gamestate.LOST;
+
+    console.log(`The computer won ${computerWins} rounds.`);
+    console.log(`The player won ${playerWins} rounds`);
+    console.log(result);
+}
