@@ -98,7 +98,7 @@ function game() {
  */
 function bestOfGames(n) {
     n = Math.floor(n/2)+ 1;
-    while(playerWins < n ||computerWins < n) {
+    while(playerWins < n && computerWins < n) {
         game();
     }
     let result = Gamestate.DRAW;
