@@ -15,7 +15,7 @@ const Gamestate = {
 
 /**
  * @param {String*} word 
- * @returns a the word capitalized
+ * @returns the word capitalized
  */
 function capitalize(word) {
     arr = Array.from(word);
