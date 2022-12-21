@@ -33,20 +33,33 @@ function getComputerChoice() {
 
 /**
  * @param {String*} choice 
- * @returns the players pick from Rock, Paper, Scissors. If players choice is not reasonable returns null
+ * @returns the players pick from Rock, Paper, Scissors.
  */
 function getPlayerChoice(choice) {
     choice = capitalize(choice);
-    if(choice == "Rock") {
-        return Choice.ROCK;
+    if(choice == "Rock") return Choice.ROCK;
+    else if(choice == "Paper") return Choice.PAPER;
+    else return Choice.SCISSORS;
+}
+
+/**
+ * Plays around of rock, paper, scissors with the players choice and a computer choice
+ * @param {Choice*} playerChoice 
+ * @param {Choice*} computerChoice 
+ * @returns 
+ */
+function playRound(playerChoice, computerChoice) {
+    if(playerChoice === computerChoice) return Gamestate.DRAW;
+    else if (playerChoice === Choice.ROCK) {
+        if(computerChoice === Choice.PAPER) return Gamestate.LOST;
+        else return Gamestate.WON;
     }
-    else if(choice == "Paper") {
-        return Choice.PAPER;
-    }
-    else if(choice == "Scissor") {
-        return Choice.SCISSORS;
+    else if (playerChoice === Choice.PAPER) {
+        if(computerChoice === Choice.ROCK) return Gamestate.WON;
+        else return Gamestate.WON;
     }
     else {
-        return null;
+        if(computerChoice === Choice.ROCK) return Gamestate.LOST;
+        else return Gamestate.WON;
     }
 }
