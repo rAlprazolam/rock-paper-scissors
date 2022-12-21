@@ -1,3 +1,6 @@
+let playerWins = 0;
+let computerWins = 0;
+
 const Choice = {
     ROCK: "Rock",
     PAPER: "Paper",
@@ -33,13 +36,14 @@ function getComputerChoice() {
 
 /**
  * @param {String*} choice 
- * @returns the players pick from Rock, Paper, Scissors.
+ * @returns the players pick from Rock, Paper, Scissors. If no reasonable choice was given returns null.
  */
 function getPlayerChoice(choice) {
     choice = capitalize(choice);
     if(choice == "Rock") return Choice.ROCK;
     else if(choice == "Paper") return Choice.PAPER;
-    else return Choice.SCISSORS;
+    else if(choice == "Scissors") return Choice.SCISSORS;
+    else return null;
 }
 
 /**
@@ -49,17 +53,43 @@ function getPlayerChoice(choice) {
  * @returns 
  */
 function playRound(playerChoice, computerChoice) {
-    if(playerChoice === computerChoice) return Gamestate.DRAW;
-    else if (playerChoice === Choice.ROCK) {
-        if(computerChoice === Choice.PAPER) return Gamestate.LOST;
+    console.log(`The computer picked: ${computerChoice}.`);
+    if(playerChoice == computerChoice) return Gamestate.DRAW;
+    else if (playerChoice == Choice.ROCK) {
+        if(computerChoice == Choice.PAPER) return Gamestate.LOST;
         else return Gamestate.WON;
     }
-    else if (playerChoice === Choice.PAPER) {
-        if(computerChoice === Choice.ROCK) return Gamestate.WON;
-        else return Gamestate.WON;
+    else if (playerChoice == Choice.PAPER) {
+        if(computerChoice == Choice.ROCK) return Gamestate.WON;
+        else return Gamestate.LOST;
     }
     else {
-        if(computerChoice === Choice.ROCK) return Gamestate.LOST;
+        if(computerChoice == Choice.ROCK) return Gamestate.LOST;
         else return Gamestate.WON;
     }
 }
+
+/**
+ * Plays a game of rock paper scissor and console.logs the outcome.
+ * If the player wins playerWins is increased by 1.
+ * If the computer wins computerWins is increased by 1.
+ * If it`s a draw no one gets points.
+ * @returns null
+ */
+function game() {
+    let computerChoice = getComputerChoice();
+    let playerChoice = prompt("Rock, Paper oder Scissors: ");
+    playerChoice = getPlayerChoice(playerChoice);
+    while (playerChoice === null) {
+        console.log("Your input was invalid! Try again!");
+        playerChoice = prompt("Rock, Paper oder Scissors: ");
+        playerChoice = getPlayerChoice(playerChoice);
+    }
+    result = playRound(playerChoice, computerChoice);
+    console.log(result);
+    if(result == Gamestate.DRAW) return;
+    else if (result == Gamestate.WON) playerWins += 1;
+    else computerWins += 1;
+}
+
+game();
