@@ -14,36 +14,11 @@ const Gamestate = {
 };
 
 /**
- * @param {String*} word 
- * @returns the word capitalized
- */
-function capitalize(word) {
-    arr = Array.from(word);
-    arr[0] = arr[0].toUpperCase(); 
-    for(let i = 1; i < arr.length; i++) {
-        arr[i] = arr[i].toLowerCase();
-    }
-    return arr.join("");
-}
-
-/**
  * @returns Returns a random pick from Rock, Paper, Scissors
  */
 function getComputerChoice() {
     const CHOICES = [Choice.ROCK, Choice.PAPER, Choice.SCISSORS];
     return CHOICES[Math.floor(Math.random() * CHOICES.length)];
-}
-
-/**
- * @param {String*} choice 
- * @returns the players pick from Rock, Paper, Scissors. If no reasonable choice was given returns null.
- */
-function getPlayerChoice(choice) {
-    choice = capitalize(choice);
-    if(choice == "Rock") return Choice.ROCK;
-    else if(choice == "Paper") return Choice.PAPER;
-    else if(choice == "Scissors") return Choice.SCISSORS;
-    else return null;
 }
 
 /**
@@ -76,15 +51,8 @@ function playRound(playerChoice, computerChoice) {
  * If it`s a draw no one gets points.
  * @returns null
  */
-function game() {
+function game(playerChoice) {
     let computerChoice = getComputerChoice();
-    let playerChoice = prompt("Rock, Paper oder Scissors: ");
-    playerChoice = getPlayerChoice(playerChoice);
-    while (playerChoice === null) {
-        console.log("Your input was invalid! Try again!");
-        playerChoice = prompt("Rock, Paper oder Scissors: ");
-        playerChoice = getPlayerChoice(playerChoice);
-    }
     result = playRound(playerChoice, computerChoice);
     console.log(result);
     if(result == Gamestate.DRAW) return;
@@ -92,20 +60,10 @@ function game() {
     else computerWins += 1;
 }
 
-/**
- * Starts a best of n of rock, paper, scissors. If n is even n will be assigned a new value that will be equal to the input of n+1
- * @param {Number*} n 
- */
-function bestOfGames(n) {
-    n = Math.floor(n/2)+ 1;
-    while(playerWins < n && computerWins < n) {
-        game();
-    }
-    let result = Gamestate.DRAW;
-    if(playerWins >= n) result = Gamestate.WON;
-    else result = Gamestate.LOST;
+const rockButton = document.querySelector("#Rock");
+const paperButton = document.querySelector("#Paper");
+const scissorButton = document.querySelector("#Scissors");
 
-    console.log(`The computer won ${computerWins} rounds.`);
-    console.log(`The player won ${playerWins} rounds`);
-    console.log(result);
-}
+rockButton.addEventListener("click", () => game(Choice.ROCK));
+paperButton.addEventListener("click", () => game(Choice.PAPER));
+scissorButton.addEventListener("click", () => game(Choice.SCISSORS));
