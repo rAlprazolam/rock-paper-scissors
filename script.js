@@ -13,11 +13,15 @@ const Gamestate = {
     DRAW: "It`s a tie!"
 };
 
+/*The wins counter*/
 const playerScore = document.querySelector("#player_score");
 const computerScore = document.querySelector("#computer_score");
 
 computerScore.textContent = computerWins;
 playerScore.textContent = playerWins;
+
+/*The result of the game*/
+const gameOutcome = document.querySelector("#game_outcome");
 
 /**
  * @returns Returns a random pick from Rock, Paper, Scissors
@@ -60,14 +64,19 @@ function playRound(playerChoice, computerChoice) {
 function game(playerChoice) {
     let computerChoice = getComputerChoice();
     result = playRound(playerChoice, computerChoice);
-    if(result == Gamestate.DRAW) return;
+    if(result == Gamestate.DRAW) {
+        gameOutcome.textContent = result;
+        return;
+    }
     else if (result == Gamestate.WON) {
         playerWins += 1;
         playerScore.textContent = playerWins;
+        gameOutcome.textContent = result;
     }
     else {
         computerWins += 1;
         computerScore.textContent = computerWins;
+        gameOutcome.textContent = result;
     }
 }
 
