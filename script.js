@@ -10,8 +10,14 @@ const Choice = {
 const Gamestate = {
     WON: "You have won!",
     LOST: "You have lost!",
-    DRAW: "It`s a draw!"
+    DRAW: "It`s a tie!"
 };
+
+const playerScore = document.querySelector("#player_score");
+const computerScore = document.querySelector("#computer_score");
+
+computerScore.textContent = computerWins;
+playerScore.textContent = playerWins;
 
 /**
  * @returns Returns a random pick from Rock, Paper, Scissors
@@ -54,10 +60,15 @@ function playRound(playerChoice, computerChoice) {
 function game(playerChoice) {
     let computerChoice = getComputerChoice();
     result = playRound(playerChoice, computerChoice);
-    console.log(result);
     if(result == Gamestate.DRAW) return;
-    else if (result == Gamestate.WON) playerWins += 1;
-    else computerWins += 1;
+    else if (result == Gamestate.WON) {
+        playerWins += 1;
+        playerScore.textContent = playerWins;
+    }
+    else {
+        computerWins += 1;
+        computerScore.textContent = computerWins;
+    }
 }
 
 const rockButton = document.querySelector("#Rock");

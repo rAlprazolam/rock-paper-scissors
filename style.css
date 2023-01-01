@@ -1,26 +1,90 @@
+/*Fonts-Start*/
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap'); /*Archivo Narrow*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap'); /*Roboto*/
+/*Fonts-End*/
+
 * {
     margin: 0;
     padding: 0;
 }
 
+/*Gerneral-Layout-Start*/
 body { 
     height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-.wrapper {
-    flex: 95%;
-    background-color: #1e2022;
+.header {
+    flex: 10%;
 
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    flex: 85%;
+    background-color: #1e2022;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.results,
+.game {
+    flex: 1;
+    width: 55%;
 }
 
 .game {
-    width: 60%;
     display: flex;
     justify-content: space-around;
+}
+
+footer {
+    flex: 5%;
+}
+/*General-Layout-End*/
+
+.header,
+.header .inner,
+footer {
+    background-color: #181a1b;
+}
+
+/*Header*/
+.header .inner {
+    display: flex;
+    justify-content: space-around;
+    width: 20%;
+}
+
+.inner h1 {
+    font-family: 'Archivo Narrow', sans-serif;
+    color: rgb(215, 169, 96);
+    font-size: 36px;
+}
+
+/*Main*/
+.results {
+    margin-top: 20px;
+}
+
+
+.text {
+    text-align: center;
+    color: #ddd;
+    font-family: 'Roboto', sans-serif;
+    opacity: .85;
+}
+
+.text h2 {
+    font-size: 28px;
+}
+.text h3 {
+    font-size: 18px;
 }
 
 button {
@@ -33,11 +97,6 @@ button:hover {
 }
 
 button img {
-    height: 256px;
+    height: 210px;
     width: auto;
-}
-
-footer {
-    flex: 5%;
-    background-color: #181a1b;
 }
