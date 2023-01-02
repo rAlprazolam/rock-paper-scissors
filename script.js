@@ -1,3 +1,4 @@
+/*Over all wins*/
 let playerWins = 0;
 let computerWins = 0;
 
