@@ -13,13 +13,6 @@ const Gamestate = {
     DRAW: "It`s a tie!"
 };
 
-/*The wins counter*/
-const playerScore = document.querySelector("#player_score");
-const computerScore = document.querySelector("#computer_score");
-
-computerScore.textContent = computerWins;
-playerScore.textContent = playerWins;
-
 /*The result of the game*/
 const gameOutcome = document.querySelector("#game_outcome");
 
@@ -38,7 +31,6 @@ function getComputerChoice() {
  * @returns 
  */
 function playRound(playerChoice, computerChoice) {
-    console.log(`The computer picked: ${computerChoice}.`);
     if(playerChoice == computerChoice) return Gamestate.DRAW;
     else if (playerChoice == Choice.ROCK) {
         if(computerChoice == Choice.PAPER) return Gamestate.LOST;
@@ -63,21 +55,34 @@ function playRound(playerChoice, computerChoice) {
  */
 function game(playerChoice) {
     let computerChoice = getComputerChoice();
-    result = playRound(playerChoice, computerChoice);
-    if(result == Gamestate.DRAW) {
-        gameOutcome.textContent = result;
-        return;
-    }
-    else if (result == Gamestate.WON) {
+    let result = playRound(playerChoice, computerChoice);
+    if (result == Gamestate.WON) {
         playerWins += 1;
-        playerScore.textContent = playerWins;
-        gameOutcome.textContent = result;
     }
-    else {
+    else if (result == Gamestate.LOST) {
         computerWins += 1;
-        computerScore.textContent = computerWins;
-        gameOutcome.textContent = result;
     }
+    updateGameScore(result);
+}
+/**
+ * Updates the DOM according to the given Result.
+ * @param {Gamestate*} result 
+ */
+function updateGameScore(result) {
+    const playerScore = document.querySelector("#player_score");
+    const computerScore = document.querySelector("#computer_score");
+
+    gameOutcome.textContent = result;
+    playerScore.textContent = playerWins;
+    computerScore.textContent = computerWins;
+}
+
+function updatePickedChoicesUI(playerChoice, computerChoice) {
+    const playerChoiceParentUI = document.querySelector("#playerChoice");
+    const computerChoiceParentUI = document.querySelector("#computerChoice");
+
+    Array.from(playerChoiceParentUI.childNodes).forEach((child) => playerChoiceParentUI.removeChild(child));
+    Array.from(computerChoiceParentUI.childNodes).forEach((child) => computerChoiceParentUI.removeChild(child));
 }
 
 const rockButton = document.querySelector("#Rock");
