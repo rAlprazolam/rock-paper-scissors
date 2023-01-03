@@ -91,6 +91,21 @@ footer {
     align-items: center;
 }
 
+.card .score {
+    color: rgb(215, 169, 96);
+    font-family: "Roboto", sans-serif;
+}
+
+.card .score,
+.card span {
+    font-size: 80px;
+}
+
+.card img {
+    width: 128px;
+    height: auto;
+}
+
 
 .text {
     text-align: center;

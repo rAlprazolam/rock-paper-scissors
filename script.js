@@ -56,6 +56,7 @@ function playRound(playerChoice, computerChoice) {
  */
 function game(playerChoice) {
     let computerChoice = getComputerChoice();
+    updatePickedChoicesUI(playerChoice, computerChoice);
     let result = playRound(playerChoice, computerChoice);
     if (result == Gamestate.WON) {
         playerWins += 1;
@@ -79,11 +80,41 @@ function updateGameScore(result) {
 }
 
 function updatePickedChoicesUI(playerChoice, computerChoice) {
+    const computerChoiceUI = createImage(computerChoice);
+    const playerChoiceUI = createImage(playerChoice)
+
+
     const playerChoiceParentUI = document.querySelector("#playerChoice");
     const computerChoiceParentUI = document.querySelector("#computerChoice");
 
     Array.from(playerChoiceParentUI.childNodes).forEach((child) => playerChoiceParentUI.removeChild(child));
     Array.from(computerChoiceParentUI.childNodes).forEach((child) => computerChoiceParentUI.removeChild(child));
+
+    playerChoiceParentUI.appendChild(playerChoiceUI);
+    computerChoiceParentUI.appendChild(computerChoiceUI);
+}
+
+function createImage(choice) {
+    const paperImage = "./img/blatt-papier.png";
+    const scissorImage = "./img/schnitt.png";
+    const rockImage = "./img/stein.png";
+
+    const img = document.createElement("img");
+
+    if(choice === Choice.ROCK) {
+        img.src = rockImage;
+        img.alt = "Rock";
+    }
+    else if (choice === Choice.PAPER) {
+        img.src = paperImage;
+        img.alt = "Paper";
+    }
+    else {
+        img.src = scissorImage;
+        img.alt = "Scissor";
+    }
+
+    return img;
 }
 
 const rockButton = document.querySelector("#Rock");
