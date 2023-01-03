@@ -14,9 +14,6 @@ const Gamestate = {
     DRAW: "It`s a tie!"
 };
 
-/*The result of the game*/
-const gameOutcome = document.querySelector("#game_outcome");
-
 /**
  * @returns Returns a random pick from Rock, Paper, Scissors
  */
@@ -65,6 +62,7 @@ function game(playerChoice) {
         computerWins += 1;
     }
     updateGameScore(result);
+    checkForWincondition();
 }
 /**
  * Updates the DOM according to the given Result.
@@ -73,12 +71,18 @@ function game(playerChoice) {
 function updateGameScore(result) {
     const playerScore = document.querySelector("#player_score");
     const computerScore = document.querySelector("#computer_score");
+    const gameOutcome = document.querySelector("#game_outcome");
 
     gameOutcome.textContent = result;
     playerScore.textContent = playerWins;
     computerScore.textContent = computerWins;
 }
 
+/**
+ * Updates the displayed choice of the player
+ * @param {Choice*} playerChoice 
+ * @param {Choice*} computerChoice 
+ */
 function updatePickedChoicesUI(playerChoice, computerChoice) {
     const computerChoiceUI = createImage(computerChoice);
     const playerChoiceUI = createImage(playerChoice)
@@ -94,6 +98,11 @@ function updatePickedChoicesUI(playerChoice, computerChoice) {
     computerChoiceParentUI.appendChild(computerChoiceUI);
 }
 
+/**
+ * Creates an img object and attaches an image to it according to the given Input
+ * @param {Choice*} choice 
+ * @returns an img object
+ */
 function createImage(choice) {
     const paperImage = "./img/blatt-papier.png";
     const scissorImage = "./img/schnitt.png";
@@ -115,6 +124,22 @@ function createImage(choice) {
     }
 
     return img;
+}
+
+function checkForWincondition() {
+    if (computerWins >= 5) {
+        alert("You lost!");
+        resetGame();
+    }
+    else if(playerWins >= 5) {
+        alert("You won!");
+        resetGame();
+    }
+}
+
+function resetGame() {
+    computerWins = 0;
+    playerWins = 0;
 }
 
 const rockButton = document.querySelector("#Rock");
